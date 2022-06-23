@@ -1,0 +1,36 @@
+development:
+  env: dev
+  is_user_authenication_enabled: True
+  is_access_control_enabled: True
+  is_data_cache_enabled: True
+  domain: trcdev.hk.intranet
+  endpoints:
+    GF_data:
+      url: http://gfapi.levantedev.hk.intranet
+    Tethys:
+      recherche:
+        url: https://gwsdj5.mycloud.intranatixis.com/s_dj5/RechercheTiersService2
+      consultation:
+        url: https://gwsdj5.mycloud.intranatixis.com/s_dj5/ConsultationTiersService8
+    Client_Pass:
+      url: https://fen.mycloud.intranatixis.com/stride/api/LegalEntity/raf/
+      oauth_url: https://fen-auth.mycloud.intranatixis.com/api/oauth/token?grant_type=client_credentials
+      oauth_token_1: dc6e2e16-c6d7-49e0-b881-015a440e2aab
+      oauth_token_2: f44806ed-e455-4ada-a9f1-55796d487e65
+  Sophis_db:
+    Host: lorap-tp-l86-01.fr.intranet
+    Port: 10098
+    TNS: L86_TP_TP_P1
+  SSO:
+    SP_ENTITY_ID: trcdev.hk.intranet
+    SP_PUBLIC: certificates/certificate.pem
+    SP_PRIVATE: certificates/private_key.pem
+    IDP_ENTITY_ID: GAAP_TRC
+    IDP_PUBLIC: certificates/public_idp.pem
+    IDP_URL: https://gaap.qua.natixis.com/samlv2/AccueilAuth/IdPAccess/AML_AutomaticRealityCheck_TRC
+  MONGODB:
+    INSTANCE: DEV_TRC
+  Actimize_file_path: /net/nfshongkong/hknfs_apps/trc/dev/actimize/
+  Flexcube_trxn_file_path: /net/nfshongkong/hknfs_apps/trc/dev/flexcube/
+  Murex_trxn_file_path: /net/nfshongkong/hknfs_apps/trc/dev/murex/
+  Summit_OTC_trxn_file_path: /net/nfshongkong/hknfs_apps/trc/dev/summit_otc/
