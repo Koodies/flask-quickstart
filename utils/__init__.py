@@ -1,17 +1,18 @@
 import os
-from pathlib import Path
-import yaml
-from library.logger import logger
-import math
-import datetime as dt
-import numpy as np
-from contextlib import contextmanager
-import multiprocessing as mp
-import traceback
-from time import time
-from utils.Exception import DataNotReadyException
 import json
-from bson.objectid import ObjectId
+import yaml
+import math
+import traceback
+import numpy as np
+import multiprocessing as mp
+from time import time
+from pathlib import Path
+from flask.json import JSONEncoder
+from library.logger import logger
+from contextlib import contextmanager
+from utils.Exception import DataNotReadyException
+from bson import json_util, ObjectId
+from datetime import datetime, timedelta
 
 
 def parse_config_env(env):
@@ -33,19 +34,13 @@ def parse_config():
 	return parse_config_env(env)
 
 
-def mongo_encoder(jsonObject):
-	try:
-		return JSONEncoder().encode(jsonObject)
-	except Exception as e:
-		logger.exception("Failed to encode ")
-	return jsonObject
-
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, ObjectId):
-            return str(o)
-        return json.JSONEncoder.default(self, o)
+class MongoJsonEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime("%Y-%m-%d %H:%M:%S")
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        return json_util.default(obj, json_util.CANONICAL_JSON_OPTIONS)
 
 
 # ability to return the process error to the parent for handling
